@@ -37,7 +37,7 @@
 
 <body>
     <div id="actions-wrapper" class="mx-3 px-3 my-2" style="border-radius:10px;">
-        <div id="actions" class="text-center py-3">
+        <div id="actions" class="py-3">
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -64,7 +64,7 @@
             }
             const recommendedActions = data.recommended_actions;
             for (let action of recommendedActions) {
-                const li = $("<div>").text(action);
+                const li = $("<div>").text("• " + action);
                 $("#actions").append(li);
             }
             $();
