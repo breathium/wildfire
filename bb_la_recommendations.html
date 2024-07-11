@@ -69,7 +69,7 @@
             if (colors[level]) {
                 $("#actions-wrapper").css("background-color", colors[level]).css("color", fontColors[level]);
             }
-            const recommendedActions = data.recommended_actions;
+            let recommendedActions = data.recommended_actions;
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
                 const lang = searchParams.get("lang");
