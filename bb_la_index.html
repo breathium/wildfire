@@ -101,7 +101,7 @@
             const MAX_VALUE = 5;
             let score = data.score;
             let level = data.level || "";
-            let languageLabels = data.labels || {};
+            let languageLabels = data.level_labels || {};
             let label = data.level_label;
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
