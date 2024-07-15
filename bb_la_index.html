@@ -157,7 +157,7 @@
             let gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
             gauge.minValue = MIN_VALUE;  // Prefer setter over gauge.minValue = 0
             gauge.maxValue = MAX_VALUE; // set max gauge value
-            const scoreLabel = label.split(" ").map((v, i) => i == 0 || (lang === 'es' && ["Peligro", "MÁS", "ALTO"].includes(v) )  ? `<span style='font-weight:600;'>${v}</span><br/>` : v).join(' ');
+            const scoreLabel = label.split(" ").map((v, i) => i == 0 || (lang === 'es' && ["Peligro", "MÁS", "ALTO", "MODERADO", "BAJO"].includes(v) )  ? `<span style='font-weight:600;'>${v}</span><br/>` : v).join(' ');
             let scoreLabelContainer = $("<div>").addClass("score-label").css("background", colors[level.toLowerCase()]).css("color", fontColors[level.toLowerCase()]);
             scoreLabelContainer.html(scoreLabel);
             if (!level) {
