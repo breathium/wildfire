@@ -103,9 +103,10 @@
             let level = data.level || "";
             let languageLabels = data.level_labels || {};
             let label = data.level_label;
+            let lang = "en";
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
-                const lang = searchParams.get("lang");
+                lang = searchParams.get("lang");
                 if (languageLabels[lang] && languageLabels[lang][level]) {
                     label = languageLabels[lang][level];
                 }
