@@ -171,14 +171,15 @@
 
             if (score >= MAX_VALUE) {
                 const labels = {
-                    "en": "HIGHEST Smoke Harm",
-                    "es": "MAYOR Daño por Humo",
+                    "en": "HIGHEST<br/>Smoke Harm",
+                    "es": "MAYOR<br/>Daño por Humo",
                     "cn": "最高煙霧危害"
                 };
                 const searchParams = new URLSearchParams(window.location.search);
                 const lang = searchParams.get("lang");
-                const buttonLabel = labels[lang] || labels["en"];
-                $("#protect-yourself-button").text(buttonLabel).removeClass("hide").css("display", "block");
+                const buttonLabel = (labels[lang] || labels["en"]);
+                const spanLabel = $("<span>").html(buttonLabel);
+                $("#protect-yourself-button").html(spanLabel).removeClass("hide").css("display", "block");
             }
             gauge.set(score.toFixed(1)); // set actual value
             return gauge;
