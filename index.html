@@ -170,7 +170,15 @@
             }
 
             if (score >= MAX_VALUE) {
-                $("#protect-yourself-button").removeClass("hide").css("display", "block");
+                const labels = {
+                    "en": "HIGHEST Smoke Harm",
+                    "es": "Mayor Daño por Humo",
+                    "cn": "最高煙霧危害"
+                };
+                const searchParams = new URLSearchParams(window.location.search);
+                const lang = searchParams.get("lang");
+                const buttonLabel = labels[lang] || labels["en"];
+                $("#protect-yourself-button").text(buttonLabel).removeClass("hide").css("display", "block");
             }
             gauge.set(score.toFixed(1)); // set actual value
             return gauge;
