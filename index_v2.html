@@ -101,13 +101,14 @@
         const createGauge = function ({ gaugeContainerId, textContainerId, data }) {
             const MIN_VALUE = 0;
             const MAX_VALUE = 5;
+            let lang = "en";
             let score = data.score;
             let level = data.level || "";
             let languageLabels = data.labels || {};
             let label = level;
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
-                const lang = searchParams.get("lang");
+                lang = searchParams.get("lang");
                 if (languageLabels[lang] && languageLabels[lang][level]) {
                     label = languageLabels[lang][level];
                 }
