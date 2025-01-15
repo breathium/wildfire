@@ -171,14 +171,14 @@
 
             if (score >= MAX_VALUE) {
                 const labels = {
-                    "en": "HIGHEST<br/>Smoke Harm",
-                    "es": "MAYOR<br/>Daño por Humo",
-                    "cn": "最高煙霧危害"
+                    "en": languageLabels["en"]["Highest"] || "HIGHEST<br/>Smoke Harm",
+                    "es": languageLabels["es"]["Highest"] || "MAYOR<br/>Daño por Humo",
+                    "cn": languageLabels["cn"]["Highest"] ||  "最高煙霧危害"
                 };
                 const searchParams = new URLSearchParams(window.location.search);
                 const lang = searchParams.get("lang");
-                const buttonLabel = (labels[lang] || labels["en"]);
-                const spanLabel = $("<span>").html(buttonLabel);
+                const buttonLabel = (labels[lang] || labels["en"]).split(" ");
+                const spanLabel = $("<span>").html(`${buttonLabel[0]}<br/>${buttonLabel.slice(1).join(" ")}`);
                 $("#protect-yourself-button").html(spanLabel).removeClass("hide").css("display", "block");
             }
             gauge.set(score.toFixed(1)); // set actual value
