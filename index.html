@@ -179,7 +179,7 @@
                 const lang = searchParams.get("lang");
                 const buttonLabel = (labels[lang] || labels["en"]).split(" ");
                 const spanLabel = $("<span>").html(`${buttonLabel[0]}<br/>${buttonLabel.slice(1).join(" ")}`);
-                $("#protect-yourself-button").html(spanLabel).removeClass("hide").css("display", "block");
+                $("#protect-yourself-button").html($(spanLabel).html()).removeClass("hide").css("display", "block");
             }
             gauge.set(score.toFixed(1)); // set actual value
             return gauge;
