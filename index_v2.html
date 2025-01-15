@@ -108,7 +108,9 @@
             let label = level;
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
-                lang = searchParams.get("lang");
+                if(searchParams.has("lang")) {
+                    lang = searchParams.get("lang");
+                }
                 if (languageLabels[lang] && languageLabels[lang][level]) {
                     label = languageLabels[lang][level];
                 }
