@@ -180,7 +180,7 @@
                 const buttonLabel = (labels[lang] || labels["en"]).split(" ");
                 const spanLabel = $("<span>").html(`${buttonLabel[0]}<br/>${buttonLabel.slice(1).join(" ")}`);
                 $("#protect-yourself-button").html($(spanLabel).html()).removeClass("hide").css("display", "block");
-                $("#score-container").hide()"
+                $("#score-container").hide();
             }
             gauge.set(score.toFixed(1)); // set actual value
             return gauge;
