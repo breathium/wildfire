@@ -176,7 +176,7 @@
 
             if (score >= MAX_VALUE) {
                 const buttonLabel = label;
-                const preLabel = $("<div>").css("font-family", "inherit").html(`${buttonLabel}`);
+                const preLabel = $("<div>").html(`${buttonLabel}`);
                 $("#protect-yourself-button").html($(preLabel).html()).removeClass("hide").css("display", "block");
                 $("#score-container").hide();
             }
