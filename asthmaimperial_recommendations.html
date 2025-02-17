@@ -61,8 +61,10 @@
             const MAX_VALUE = 5;
             let score = data.score;
             const levelLabel = data.level_label;
+            let lang = "en";
             let level = data.level;
-            let languageLabels = data.recommended_actions_labels;
+            debugger;
+            let languageLabels = data.recommended_actions_labels[lang];
             if (score >= MAX_VALUE) {
                 level = "highest";
             }
@@ -71,8 +73,8 @@
             }
             let recommendedActions = data.recommended_actions;
             if (languageLabels) {
+                lang = searchParams.get("lang");
                 const searchParams = new URLSearchParams(window.location.search);
-                const lang = searchParams.get("lang");
                 if (languageLabels[lang] && languageLabels[lang][level]) {
                     recommendedActions = languageLabels[lang][level];
                 }
