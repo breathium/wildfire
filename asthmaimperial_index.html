@@ -104,7 +104,7 @@
             let lang = "en";
             let score = data.score;
             let level = data.level || "";
-            let languageLabels = data.labels || {};
+            let languageLabels = data.level_labels || {};
             let label = level;
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
@@ -162,8 +162,7 @@
             gauge.minValue = MIN_VALUE;  // Prefer setter over gauge.minValue = 0
             gauge.maxValue = MAX_VALUE; // set max gauge value
             let scoreLabel = label;
-            const buttonLabel = scoreLabel.split(" ");
-            const spanLabel = $("<span>").html(`${buttonLabel[0]}<br/>${buttonLabel.slice(1).join(" ")}`);
+            const spanLabel = $("<div>").html(`${scoreLabel}`);
             
             let scoreLabelContainer = $("<div>").addClass("score-label").css("background", colors[level.toLowerCase()]).css("color", fontColors[level.toLowerCase()]);
             scoreLabelContainer.html(spanLabel);
@@ -176,16 +175,9 @@
             }
 
             if (score >= MAX_VALUE) {
-                const labels = {
-                    "en": languageLabels["en"]["Highest"] || "HIGHEST<br/>Smoke Harm",
-                    "es": languageLabels["es"]["Highest"] || "MAYOR<br/>Daño por Humo",
-                    "cn": languageLabels["cn"]["Highest"] ||  "最高煙霧危害"
-                };
-                const searchParams = new URLSearchParams(window.location.search);
-                const lang = searchParams.get("lang");
-                const buttonLabel = (labels[lang] || labels["en"]).split(" ");
-                const spanLabel = $("<span>").html(`${buttonLabel[0]}<br/>${buttonLabel.slice(1).join(" ")}`);
-                $("#protect-yourself-button").html($(spanLabel).html()).removeClass("hide").css("display", "block");
+                const buttonLabel = label;
+                const preLabel = $("<div>").html(`${buttonLabel}`);
+                $("#protect-yourself-button").html($(preLabel).html()).removeClass("hide").css("display", "block");
                 $("#score-container").hide();
             }
             gauge.set(score.toFixed(1)); // set actual value
@@ -214,7 +206,7 @@
 
 
             //const url = 'https://script.google.com/macros/s/AKfycbxuywF-UpZaw6bJtmmCD5go8kc4xQNbHopoGraHhoJSh-20B5fOWGnY9t_FF2qwyKKhaA/exec?view=get-live-data';
-            const url = "https://breathium.github.io/wildfire/asthmaimperial_data.json?t=" + (+new Date());
+            const url = "https://breathium.github.io/wildfire/asthmimperial_data.json?t=" + (+new Date());
             const response = await fetch(url);
             if (!response.ok) {
                 return;
