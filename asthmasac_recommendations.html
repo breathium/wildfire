@@ -64,14 +64,14 @@
             let lang = "en";
             let level = data.level;
             debugger;
-            let languageLabels = data.recommended_actions_labels[lang];
+            let languageLabels = data.recommended_actions_labels;
             if (score >= MAX_VALUE) {
                 level = "highest";
             }
             if (colors[level]) {
                 $("#actions-wrapper").css("background-color", colors[level]).css("color", fontColors[level]);
             }
-            let recommendedActions = data.recommended_actions_labels[lang];
+            let recommendedActions = data.recommended_actions_labels[lang][level];
             if (languageLabels) {
                 lang = searchParams.get("lang");
                 const searchParams = new URLSearchParams(window.location.search);
