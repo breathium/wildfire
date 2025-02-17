@@ -73,8 +73,8 @@
             }
             let recommendedActions = data.recommended_actions_labels[lang][level];
             if (languageLabels) {
-                lang = searchParams.get("lang");
                 const searchParams = new URLSearchParams(window.location.search);
+                lang = searchParams.get("lang");
                 if (languageLabels[lang] && languageLabels[lang][level]) {
                     recommendedActions = languageLabels[lang][level];
                 }
