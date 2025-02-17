@@ -162,7 +162,7 @@
             gauge.minValue = MIN_VALUE;  // Prefer setter over gauge.minValue = 0
             gauge.maxValue = MAX_VALUE; // set max gauge value
             let scoreLabel = label;
-            const spanLabel = $("<pre>").html(`${scoreLabel}`);
+            const spanLabel = $("<pre>").css("font-face", "inherit").html(`${scoreLabel}`);
             
             let scoreLabelContainer = $("<div>").addClass("score-label").css("background", colors[level.toLowerCase()]).css("color", fontColors[level.toLowerCase()]);
             scoreLabelContainer.html(spanLabel);
@@ -176,7 +176,7 @@
 
             if (score >= MAX_VALUE) {
                 const buttonLabel = label;
-                const preLabel = $("<pre>").html(`${buttonLabel[0]}<br/>${buttonLabel.slice(1).join(" ")}`);
+                const preLabel = $("<pre>").css("font-family", "inherit").html(`${buttonLabel}`);
                 $("#protect-yourself-button").html($(preLabel).html()).removeClass("hide").css("display", "block");
                 $("#score-container").hide();
             }
