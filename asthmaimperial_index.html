@@ -11,8 +11,9 @@
             left: 0;
             color: #fff;
             width: 275px;
-            height: 183px;
+            height: 200px;
             clear: both;
+            margin: auto;
         }
 
         #logo-container {
@@ -35,8 +36,8 @@
         }
 
         .score-label {
-            font-size: 1.45rem;
-            padding: 0.5rem 1rem 0.5rem 1rem;
+            font-size: 1.1rem;
+            padding: 0.5rem 1.5rem 0.5rem 1.5rem;
             border-radius: 10px;
             border: none;
             max-width: 50%;
@@ -66,7 +67,7 @@
             text-decoration: none;
             border: none;
             border-radius: 10px;
-            padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+            padding: 1rem 0.5rem 1rem 0.5rem;
             margin-left: auto;
             margin-right: auto;
             width: 75%;
@@ -85,14 +86,11 @@
     <base target="_top" />
     <div id="preview">
         <div id="timestamp" style="color: black;"></div>
-        <canvas width="275" height="163" id="chart" style="width: 275px; height: 163px;"></canvas>
+        <div style="display: flex; align-content: center;">
+            <canvas width="275" height="200" id="chart" style="width: 275px; height: 200px;"></canvas>
+        </div>
         <div id="preview-textfield">
             <div id="score-container"></div>
-            <div>
-                <span id="protect-yourself-button" class="protect-yourself-button hide" >
-                    HIGHEST Smoke Harm
-                </span>
-            </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -101,22 +99,21 @@
         const createGauge = function ({ gaugeContainerId, textContainerId, data }) {
             const MIN_VALUE = 0;
             const MAX_VALUE = 5;
-            let lang = "en";
             let score = data.score;
             let level = data.level || "";
             let languageLabels = data.level_labels || {};
-            let label = level;
+            let label = data.level_label;
+            let lang = "en";
             if (languageLabels) {
                 const searchParams = new URLSearchParams(window.location.search);
-                if(searchParams.has("lang")) {
-                    lang = searchParams.get("lang");
-                }
+                lang = searchParams.get("lang");
                 if (languageLabels[lang] && languageLabels[lang][level]) {
                     label = languageLabels[lang][level];
                 }
             }
             if (score >= MAX_VALUE) {
                 score = MAX_VALUE;
+                level = "highest";
             }
             let opts = {
                 angle: -0.2, // The span of the gauge arc
@@ -150,7 +147,7 @@
                 opts.staticZones = [
                     { strokeStyle: colors.lower, min: 0, max: 2.5, height: 1 },
                     { strokeStyle: colors.moderate, min: 2.51, max: 4, height: 1 },
-                    { strokeStyle: colors.high, min: 4.01, max: 5, height: 1 },
+                    { strokeStyle: colors.high, min: 4.01, max: 4.99, height: 1 },
                 ];
             }
             else {
@@ -161,24 +158,15 @@
             let gauge = new Gauge(target).setOptions(opts); // create sexy gauge!
             gauge.minValue = MIN_VALUE;  // Prefer setter over gauge.minValue = 0
             gauge.maxValue = MAX_VALUE; // set max gauge value
-            let scoreLabel = label;
-            const spanLabel = $("<div>").html(`${scoreLabel}`);
-            
+            const scoreLabel = label.split(" ").map((v, i) => i == 0 || (lang === 'es' && ["Peligro", "MÁS", "ALTO", "MODERADO", "BAJO"].includes(v) )  ? `<span style='font-weight:600;'>${v}</span><br/>` : v).join(' ');
             let scoreLabelContainer = $("<div>").addClass("score-label").css("background", colors[level.toLowerCase()]).css("color", fontColors[level.toLowerCase()]);
-            scoreLabelContainer.html(spanLabel);
+            scoreLabelContainer.html(scoreLabel);
             if (!level) {
                 scoreLabelContainer = $("<div>");
             }
             const scoreBlock = $("#" + textContainerId).empty();
-            if (level && score < MAX_VALUE) {
+            if (level) {
                 scoreBlock.append(scoreLabelContainer);
-            }
-
-            if (score >= MAX_VALUE) {
-                const buttonLabel = label;
-                const preLabel = $("<div>").html(`${buttonLabel}`);
-                $("#protect-yourself-button").html($(preLabel).html()).removeClass("hide").css("display", "block");
-                $("#score-container").hide();
             }
             gauge.set(score.toFixed(1)); // set actual value
             return gauge;
@@ -195,17 +183,8 @@
 
             const gaugeContainerId = "chart";
             const textContainerId = "score-container";
-            createGauge({
-                gaugeContainerId: gaugeContainerId,
-                textContainerId: textContainerId,
-                data: {
-                    score: 0,
-                    label: "",
-                }
-            });
 
 
-            //const url = 'https://script.google.com/macros/s/AKfycbxuywF-UpZaw6bJtmmCD5go8kc4xQNbHopoGraHhoJSh-20B5fOWGnY9t_FF2qwyKKhaA/exec?view=get-live-data';
             const url = "https://breathium.github.io/wildfire/asthmaimperial_data.json?t=" + (+new Date());
             const response = await fetch(url);
             if (!response.ok) {
